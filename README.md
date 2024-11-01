@@ -72,8 +72,26 @@ Or, an **array of `string`, `File`, `Buffer`, or `stream.Readable` objects**.
   urlList: [String],        // web seed urls (see [bep19](http://www.bittorrent.org/beps/bep_0019.html))
   info: Object,             // add non-standard info dict entries, e.g. info.source, a convention for cross-seeding
   onProgress: Function      // called with the number of bytes hashed and estimated total size after every piece
+  files: [[String]]         // ignore matching files (array of arrays of strings) new feature
+  reverse: Boolean          // enable reverse matching (default = false) new feature
 }
 ```
+
+**Note**: By default, if you use match mode, all files in `files` will be excluded from the .torrent file, you can also
+enable reverse match mode with `reverse`.
+
+``` js
+// Example
+[
+  'sample_file.txt', //ignore by filename, extension required
+  '*.txt', //ignore by glob pattern,
+  'sample_folder', //ignore by folder
+  'sample_folder/*.txt', //ignore nested by glob pattern
+  'full_path/file.txt', //ignore by full path,
+  'full_path/*.txt' //ignore nested by glob pattern
+]
+```
+
 
 If `announceList` is omitted, the following trackers will be included automatically:
 

@@ -188,7 +188,10 @@ function _parseInput (input, opts, cb) {
           throw new Error('filesystem paths do not work in the browser')
         }
         const keepRoot = numPaths > 1 || isSingleFileTorrent
-        getFiles(item, keepRoot, cb)
+        getFiles(item, {
+          keepRoot,
+          ...opts
+        }, cb)
         return // early return!
       } else {
         throw new Error('invalid input type')
