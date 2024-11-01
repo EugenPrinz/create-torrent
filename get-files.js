@@ -126,9 +126,6 @@ export default function getFiles (path, options, cb) {
       file.getStream = getFilePathStream(file.path)
       file.path = file.path.replace(path, '').split(corePath.sep)
     })
-
-    console.log('final result', files)
-
     cb(null, files)
   })
 }
