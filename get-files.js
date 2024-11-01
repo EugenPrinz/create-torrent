@@ -116,7 +116,7 @@ export default function getFiles (path, options, cb) {
         path = path.slice(0, path.lastIndexOf(corePath.sep) + 1)
       } else {
         //
-        path = path.slice(0, path.indexOf(options.rootFolder))
+        path = path.slice(0, path.indexOf(options.rootFolder) + options.rootFolder.length)
       }
     }
 
