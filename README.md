@@ -72,8 +72,9 @@ Or, an **array of `string`, `File`, `Buffer`, or `stream.Readable` objects**.
   urlList: [String],        // web seed urls (see [bep19](http://www.bittorrent.org/beps/bep_0019.html))
   info: Object,             // add non-standard info dict entries, e.g. info.source, a convention for cross-seeding
   onProgress: Function      // called with the number of bytes hashed and estimated total size after every piece
-  files: [[String]]         // ignore matching files (array of arrays of strings) new feature
+  files: [String]           // ignore matching files (array of arrays of strings) new feature
   reverse: Boolean          // enable reverse matching (default = false) new feature
+  rootFolder: String        // the root folder to start from (new feature), works if many files included
 }
 ```
 

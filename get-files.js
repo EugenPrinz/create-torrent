@@ -90,16 +90,18 @@ function getFilePathStream (path) {
  *  - keepRoot: {boolean} (default: false)
  *  - files: {string[]} (default: [])
  *  - reverse: {boolean} Enable reverse matching (default: 'false')
+ *  - rootFolder: {string} (default: '')
  * @param cb {Function} (err, files)
  * @description
  *  - keepRoot: whether or not to keep the root directory in the resulting files
  *  - files: You can specify the full path to the file, the file extension, or its name.
- *  - reverse: Enables reverse matching, works only if there is more than one element in the files field.
+ *  - reverse: Enables reverse matching
+ *  - rootFolder: The root folder to start from
  */
 
 export default function getFiles (path, options, cb) {
 
-  if(typeof options !== 'object' || Object.entries(options).length === 0) options = { keepRoot: false }
+  if(typeof options !== 'object' || Object.entries(options).length === 0) options = { keepRoot: false, rootFolder: '' }
 
   traversePath(path, options, getFileInfo, (err, files) => {
     if (err) return cb(err)
@@ -107,12 +109,14 @@ export default function getFiles (path, options, cb) {
     if (Array.isArray(files)) files = files.flat(Infinity)
     else files = [files]
 
-    console.log('final result', files)
-
     path = corePath.normalize(path)
 
     if (options.keepRoot) {
-      path = path.slice(0, path.lastIndexOf(corePath.sep) + 1)
+      if(!options.rootFolder) {
+        path = path.slice(0, path.lastIndexOf(corePath.sep) + 1)
+      } else {
+        path = path.slice(0, path.indexOf(options.rootFolder))
+      }
     }
 
     if (path.substring(path.length - 1) !== corePath.sep) path += corePath.sep
@@ -122,7 +126,7 @@ export default function getFiles (path, options, cb) {
       file.path = file.path.replace(path, '').split(corePath.sep)
     })
 
-    console.log('final result', files.length)
+    console.log('final result', files)
 
     cb(null, files)
   })
