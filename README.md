@@ -74,6 +74,7 @@ Or, an **array of `string`, `File`, `Buffer`, or `stream.Readable` objects**.
   onProgress: Function      // called with the number of bytes hashed and estimated total size after every piece
   files: [String]           // ignore matching files (array of strings) new feature
   reverse: Boolean          // enable reverse matching (default = false) new feature
+  rootFolder: String        // the root folder to start from //work only if keepRoot is true
 }
 ```
 
